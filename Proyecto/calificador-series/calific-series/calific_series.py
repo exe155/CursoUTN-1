@@ -1,12 +1,11 @@
-from logging import root
-from os import link
 import tkinter as tk
-from client.gui_app import Frame 
+from client.gui_app import Frame, menu_sup
 
 def main():
     root = tk.Tk()
     root.title('Calificador de Series')
-    root.resizable(0,0)
+    # root.resizable(0,0)
+    menu_sup(root)
 
     app = Frame(root = root)
 
