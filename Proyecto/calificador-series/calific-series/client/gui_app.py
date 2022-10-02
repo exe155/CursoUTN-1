@@ -1,6 +1,7 @@
 from distutils.command.clean import clean
 from os import stat
 import tkinter as tk
+from model.series_dao import crear_tabla, eliminar_tabla
 
 def menu_sup(root):
     menu_sup = tk.Menu(root)
