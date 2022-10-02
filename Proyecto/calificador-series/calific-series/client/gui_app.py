@@ -1,4 +1,5 @@
 import tkinter as tk
+from model.series_dao import crear_tabla, eliminar_tabla
 
 class Frame(tk.Frame):
     def __init__(self, root = None):
