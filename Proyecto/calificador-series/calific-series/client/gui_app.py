@@ -1,7 +1,8 @@
-from distutils.command.clean import clean
-from os import stat
+# from distutils.command.clean import clean
+# from os import stat
 import tkinter as tk
-from model.series_dao import crear_tabla, eliminar_tabla
+from tkinter import ttk
+# from model.series_dao import crear_tabla, eliminar_tabla
 
 def menu_sup(root):
     menu_sup = tk.Menu(root)
@@ -49,6 +50,8 @@ class Frame(tk.Frame):
         self.config(bg = 'black')
 
         self.camps_series()
+        self.camps_deactivate()
+        self.tabla_series()
 
     def camps_series(self):
 
@@ -98,17 +101,16 @@ class Frame(tk.Frame):
             self.boton_nuevo.config(width= 20, font=('Times', 15, 'bold'), fg = '#DAD5D6', bg = '#158645', cursor= 'hand2', activebackground= '#35BD6F')
             self.boton_nuevo.grid(row= 4, column= 0)
 
-            self.boton_guardar = tk.Button(self, text="Guardar")
+            self.boton_guardar = tk.Button(self, text="Guardar", command= self.guardar_datos)
             self.boton_guardar.config(width= 20, font=('Times', 15, 'bold'), fg = '#DAD5D6', bg = '#1658A2', cursor= 'hand2', activebackground= '#3586DF')
             self.boton_guardar.grid(row= 4, column= 1)
 
-            self.boton_cancelar = tk.Button(self, text="Cancelar", command= self.camps_deactivate, )
+            self.boton_cancelar = tk.Button(self, text="Cancelar", command= self.camps_deactivate)
             self.boton_cancelar.config(width= 20, font=('Times', 15, 'bold'), fg = '#DAD5D6', bg = '#BD152E', cursor= 'hand2', activebackground= '#E15370')
             self.boton_cancelar.grid(row= 4, column= 2)
 
     def camps_activate(self):
 
-            self.boton_nuevo()
             self.entry_nombre.config(state= 'normal')
             self.entry_genero.config(state= 'normal')
             self.entry_capitulos.config(state= 'normal')
@@ -119,6 +121,11 @@ class Frame(tk.Frame):
 
     def camps_deactivate(self):
 
+            self.mio_nombre.set('')
+            self.mio_genero.set('')
+            self.mio_capitulos.set('')
+            self.mio_puntaje.set('')
+
             self.entry_nombre.config(state= 'disable')
             self.entry_genero.config(state= 'disable')
             self.entry_capitulos.config(state= 'disable')
@@ -127,5 +134,29 @@ class Frame(tk.Frame):
             self.boton_guardar.config(state= 'disable')
             self.boton_cancelar.config(state= 'disable')
 
+    def guardar_datos(self):
 
+            self.camps_deactivate()   
 
+    def tabla_series(self):
+
+            self.tabla = ttk.Treeview(self, 
+            column= ('Nombre', 'Capitulos', 'Genero', 'Puntaje'))
+            self.tabla.grid(row= 5, column= 0, columnspan= 5)
+
+            self.tabla.heading('#0', text='ID')
+            self.tabla.heading('#1', text='SERIE')
+            self.tabla.heading('#2', text='CAPITULOS')
+            self.tabla.heading('#3', text='GENERO')
+            self.tabla.heading('#4', text='PUNTAJE')
+
+            self.tabla.insert('', 0, text= '1', 
+            values= ('Loki', '6', 'Acción', '7'))
+
+            self.boton_editar = tk.Button(self, text="Editar")
+            self.boton_editar.config(width= 20, font=('Times', 15, 'bold'), fg = '#DAD5D6', bg = '#158645', cursor= 'hand2', activebackground= '#35BD6F')
+            self.boton_editar.grid(row= 5, column= 0, padx= 10, pady= 10)
+
+            self.boton_eliminar = tk.Button(self, text="Eliminar")
+            self.boton_eliminar.config(width= 20, font=('Times', 15, 'bold'), fg = '#DAD5D6', bg = '#BD152E', cursor= 'hand2', activebackground= '#E15370')
+            self.boton_eliminar.grid(row= 5, column= 1, padx= 10, pady= 10)
